@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import Header from "@/components/Header";
 
 async function getPost(id) {
   const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
@@ -14,30 +15,48 @@ async function getPost(id) {
 }
 
 export default async function BlogDetailPage({ params }) {
-  const post = await getPost(params.id);
+  const { id } = await params;
+  const post = await getPost(id);
 
   if (!post) {
     notFound();
   }
 
   return (
-    <main className="min-h-screen bg-gray-50 px-6 py-10">
-      <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow p-8">
-        <p className="text-sm text-indigo-600 font-semibold mb-2">
-          Blog Detail
-        </p>
+    <main className="min-h-screen bg-gray-50">
+      <Header />
 
-        <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
+      <section className="mx-auto w-full max-w-4xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
+        <article className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
+          <div className="border-b border-gray-100 px-6 py-6 sm:px-8 sm:py-8">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-gray-500">
+              Blog Detail
+            </p>
 
-        <p className="text-gray-700 leading-7 mb-8">{post.body}</p>
+            <h1 className="text-3xl font-bold leading-tight text-gray-900 capitalize sm:text-4xl">
+              {post.title}
+            </h1>
 
-        <Link
-          href="/"
-          className="inline-block bg-indigo-600 text-white px-4 py-2 rounded-lg"
-        >
-          Back to Blog
-        </Link>
-      </div>
+            <div className="mt-4 flex flex-wrap items-center gap-3 text-sm text-gray-500">
+              <span className="rounded-full bg-gray-100 px-3 py-1">User #{post.userId}</span>
+              <span className="rounded-full bg-gray-100 px-3 py-1">Post #{post.id}</span>
+            </div>
+          </div>
+
+          <div className="px-6 py-8 sm:px-8 sm:py-10">
+            <p className="whitespace-pre-line text-[17px] leading-8 text-gray-700">{post.body}</p>
+
+            <div className="mt-10 border-t border-gray-100 pt-6">
+              <Link
+                href="/"
+                className="inline-flex items-center rounded-lg bg-gray-900 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-gray-700"
+              >
+                Back to Blog
+              </Link>
+            </div>
+          </div>
+        </article>
+      </section>
     </main>
   );
 }

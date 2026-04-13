@@ -1,10 +1,14 @@
 export default function Badge({ label, color = "indigo" }) {
-const styles = color === "indigo"
-    ? "bg-indigo-100 text-indigo-700"
-    : "bg-gray-100 text-gray-600";
-        return (
-            <span className={`${styles} text-xs font-semibold px-2 py-1 rounded-full`}>
+    const styles =
+        color === "indigo"
+            ? "border-indigo-200 bg-indigo-50 text-indigo-700"
+            : "border-gray-200 bg-gray-100 text-gray-700";
+
+    return (
+        <span
+            className={`${styles} inline-flex items-center rounded-full border px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide`}
+        >
             {label}
-            </span>
-        );
+        </span>
+    );
 }

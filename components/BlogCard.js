@@ -1,17 +1,29 @@
+import Link from "next/link";
+import Badge from "./Badge";
+
 export default function BlogCard({ post }) {
-return (
-    <div className="border p-5 rounded-xl shadow-sm hover:shadow-lg transition bg-white">
-        <span className="text-xs text-indigo-500 font-semibold uppercase tracking-wide">
-        {post.category}
-        </span>
-        <h2 className="font-bold text-lg mt-2 mb-1 line-clamp-2">{post.title}</h2>
-        <p className="text-gray-500 text-sm line-clamp-3 mb-4">{post.body}</p>
-        <div className="flex justify-between items-center mt-auto">
-        <span className="text-sm text-gray-400">User #{post.userId}</span>
-        <a href={`/blog/${post.id}`} className="bg-indigo-600 text-white px-3 py-1 rounded text-sm">
-        Read More
-        </a>
-        </div>
-    </div>
-);
+    return (
+        <article className="flex h-full flex-col rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+            <div className="mb-3 flex items-center justify-between gap-3">
+                <Badge label={post.category} />
+                <span className="text-xs text-gray-500">Post #{post.id}</span>
+            </div>
+
+            <h2 className="mb-3 line-clamp-2 text-xl font-semibold leading-snug text-gray-900 capitalize">
+                {post.title}
+            </h2>
+
+            <p className="mb-6 line-clamp-3 text-sm leading-6 text-gray-600">{post.body}</p>
+
+            <div className="mt-auto flex items-center justify-between gap-4 border-t border-gray-100 pt-4">
+                <span className="text-sm text-gray-500">User #{post.userId}</span>
+                <Link
+                    href={`/blog/${post.id}`}
+                    className="inline-flex items-center rounded-lg bg-gray-900 px-3.5 py-2 text-sm font-medium text-white transition hover:bg-gray-700"
+                >
+                    Read More
+                </Link>
+            </div>
+        </article>
+    );
 }
